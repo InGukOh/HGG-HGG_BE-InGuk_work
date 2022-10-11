@@ -1,11 +1,14 @@
-<<<<<<< HEAD
-node_modules
-=======
+.node_modules
+node_modules/
+
 .vscode 
 .idea
 .DS_Store
 db_data
-dist
+.dist
+dist/
+
+
 
 # Logs
 logs
