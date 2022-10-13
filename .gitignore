@@ -1,11 +1,14 @@
-<<<<<<< HEAD
-node_modules
-=======
+.node_modules
+node_modules/
+.env
 .vscode 
 .idea
 .DS_Store
 db_data
-dist
+.dist
+dist/
+
+
 
 # Logs
 logs
@@ -115,3 +118,4 @@ dist
 # Empty dir
 .src/*/.gitkeep
 >>>>>>> 32f82c951c3c7095780306d1f8d30afae61859dd
+C.zip

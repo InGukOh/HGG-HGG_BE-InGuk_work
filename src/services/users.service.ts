@@ -40,6 +40,7 @@ export const UsersService = {
       return { message: '입력하신 정보를 확인해주세요.', status: 400 };
     }
   },
+
   checkEmail: async (userDTO: UserEmail) => {
     const hasEmail = await getRepository(User)
       .createQueryBuilder('user')
