@@ -1,3 +1,4 @@
+import { Response } from 'express';
 import { User } from '../db/entity/user';
 import { getRepository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
@@ -9,6 +10,7 @@ export const AuthService = {
     // 이메일 존재 확인
     const userFromDB = await getRepository(User).findOneBy({
       email: userDTO.email,
+      deleted_at: null,
     });
 
     if (!userFromDB) {
@@ -24,7 +26,7 @@ export const AuthService = {
     if (!isMatchedPassword) {
       return { message: '로그인 정보를 확인해주세요.', status: 400 };
     }
-    console.log(userFromDB);
+    // console.log(userFromDB);
     // 토큰 발급
     try {
       // access token 발급
@@ -37,7 +39,7 @@ export const AuthService = {
         process.env.ACCESS_SECRET,
         {
           expiresIn: process.env.ACCESS_EXPIRE,
-          issuer: process.env.TOKEN_ISUUER,
+          issuer: process.env.TOKEN_ISSUER,
         },
       );
 
@@ -58,7 +60,16 @@ export const AuthService = {
         accessToken,
       };
     } catch (err) {
+      console.log(err);
       return { message: '로그인 정보를 확인해주세요.', status: 400 };
     }
+  },
+  logout: async (res: Response) => {
+    // access 토큰 초기화
+    res.cookie('accessToken', '');
+    return {
+      message: '로그아웃 되었습니다.',
+      status: 200,
+    };
   },
 };
