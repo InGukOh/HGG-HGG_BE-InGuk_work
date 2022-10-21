@@ -24,3 +24,8 @@ export interface UserEmail {
 export interface UserNickName {
   nickname: string;
 }
+
+export interface UserLogin {
+  email: string;
+  password: string;
+}

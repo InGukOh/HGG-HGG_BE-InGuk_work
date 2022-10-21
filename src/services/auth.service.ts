@@ -1,9 +1,12 @@
-import { Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { User } from '../db/entity/user';
 import { getRepository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { LoginInterFace } from 'interfaces/auth.interfaces';
 import * as jwt from 'jsonwebtoken';
+
+//인국추가//
+import { Passport } from '../middlewares/package/passport';
 
 export const AuthService = {
   login: async (userDTO: LoginInterFace) => {
@@ -71,5 +74,11 @@ export const AuthService = {
       message: '로그아웃 되었습니다.',
       status: 200,
     };
+  },
+
+  //인국 추가
+  loginLocal: async (req: Request, res: Response, next: NextFunction) => {
+    console.log('Service loginLocal 시작');
+    Passport.authenticate('local')(req, res, next);
   },
 };
